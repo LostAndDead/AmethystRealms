@@ -8,6 +8,11 @@ import java.util.UUID;
 public class MySQL {
 
     private Connection connection;
+    private AmethystRealmsCore core;
+
+    public MySQL(AmethystRealmsCore core){
+        this.core = core;
+    }
 
     public boolean isConnected(){
         return(connection != null);
@@ -15,11 +20,11 @@ public class MySQL {
 
     public void connect() throws ClassNotFoundException, SQLException {
         if (!isConnected()){
-            String host = "node.lostanddead.co.uk";
-            String port = "3306";
-            String database = "s3_Testing";
-            String username = "u3_6xGvLfx6LN";
-            String password = "5nFxpwZH@Q1ElM.jdGuzHdye";
+            String host = core.getConfig().getString("SQLHost");
+            String port = core.getConfig().getString("SQLPort");
+            String database = core.getConfig().getString("SQLDatabase");
+            String username = core.getConfig().getString("SQLUsername");
+            String password = core.getConfig().getString("SQLPassword");
             connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=true", username, password);
         }
     }

@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>uk.co.lostanddead</groupId>
-    <artifactId>LostSMP</artifactId>
+    <artifactId>AmethystRealms</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>LostSMP</name>
+    <name>AmethystRealms</name>
 
-    <description>Core plugin for Lost SMP 1.17</description>
+    <description>Core plugin for AmethystRealms 1.17</description>
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

@@ -5,8 +5,8 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import uk.co.lostanddead.AmethystRealms.commands.*;
@@ -44,7 +44,10 @@ public final class AmethystRealmsCore extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.SQL = new MySQL();
+
+        this.saveDefaultConfig();
+
+        this.SQL = new MySQL(this);
         this.Kicker = new KickHandler(this);
         this.Filter = new SwearWordFinder();
         Filter.loadConfigs();
@@ -135,6 +138,8 @@ public final class AmethystRealmsCore extends JavaPlugin {
             stand.remove();
         }
     }
+
+    public FileConfiguration getConfig(){ return this.getConfig(); }
 
     public MySQL getSQL(){
         return SQL;
