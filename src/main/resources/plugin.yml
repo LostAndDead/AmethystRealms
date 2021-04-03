@@ -1,0 +1,96 @@
+name: AmethystRealms
+version: ${project.version}
+main: uk.co.lostanddead.AmethystRealms.AmethystRealmsCore
+api-version: 1.16
+authors: [ LostAndDead ]
+description: Core plugin for Lost SMP 1.17
+website: https://lostanddead.co.uk
+permissions:
+  smp.owner:
+    description: Grants Owner access
+    default: false
+  smp.admin:
+    description: Grants Admin access
+    default: false
+  smp.mod:
+    description: Grants Moderator access
+    default: false
+  smp.premium:
+    description: Grants access to Premium features
+    default: false
+  smp.default:
+    description: Grants access to Default features
+    default: false
+
+commands:
+  mute:
+    description: Mutes a player
+    usage: /<command> Player Reason
+    permission: smp.mod
+    permission-message: ""
+  unmute:
+    description: Un-Mutes a player
+    usage: /<command> Player
+    permission: smp.mod
+    permission-message: ""
+  broadcast:
+    description: Broadcasts a message to all players
+    usage: /<command> Message
+    permission: smp.admin
+    permission-message: ""
+  pack:
+    description: Manage which resource pack you have
+    usage: /<command> PackType
+    permission: smp.admin
+    permission-message: ""
+  menu:
+    description: Open a custom menu
+    usage: /<command> menu
+    permission: smp.admin
+    permission-message: ""
+  help:
+    aliases: [
+        "?"
+    ]
+    description: Get some help
+    usage: /<command>
+  plugins:
+    aliases: [
+        "pl"
+    ]
+    description: List plugins
+    usage: /<command>
+  kick:
+    description: Kick a player
+    usage: /<command> Player Reason
+    permission: smp.mod
+    permission-message: ""
+  msg:
+    aliases: [
+        "tell",
+        "whisper"
+    ]
+    description: Message another player
+    usage: /<command> Recipiant Message
+  reply:
+    aliases: [
+        "r"
+    ]
+    description: Reply to your previously messaged player
+    usage: /<command> Message
+  shop:
+    description: Open the shop
+    usage: /<command>
+  openshop:
+    description: Opens the shop for everyone to use
+    usage: /<command>
+    permission: smp.admin
+    permission-message: ""
+  togglehud:
+    description: Toggles Co-ordinate hud
+    usage: /<command>
+  hat:
+    description: Puts your held item on your head
+    usage: /<command>
+    permission: smp.premium
+    permission-message: "也 到 §cIs Required To Use This §r也"
