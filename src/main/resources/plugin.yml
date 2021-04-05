@@ -94,3 +94,9 @@ commands:
     usage: /<command>
     permission: smp.premium
     permission-message: "也 到 §cIs Required To Use This §r也"
+  link:
+    description: Link to Discord
+    usage: /<command>
+  unlink:
+    description: Remove Discord link
+    usage: /<command>

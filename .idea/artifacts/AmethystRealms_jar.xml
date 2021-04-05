@@ -1,9 +1,9 @@
 <component name="ArtifactManager">
-  <artifact type="jar" build-on-make="true" name="AmethystRealms">
+  <artifact type="jar" build-on-make="true" name="AmethystRealms:jar">
     <output-path>D:/Games/Minecraft/Servers/servers/Testing/plugins</output-path>
     <root id="archive" name="AmethystRealms.jar">
       <element id="module-output" name="AmethystRealms" />
-      <element id="extracted-dir" path="D:/Code/Java/Depends/NameTagChanger v1.1-SNAPSHOT.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="D:/Code/Java/Depends/javacord-3.2.0-shaded.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

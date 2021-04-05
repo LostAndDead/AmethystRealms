@@ -1,5 +1,6 @@
 package uk.co.lostanddead.AmethystRealms;
 
+import org.apache.commons.lang.ObjectUtils;
 import org.bukkit.entity.Player;
 
 import java.sql.*;
@@ -50,7 +51,6 @@ public class MySQL {
                 PreparedStatement ps = getConnection().prepareStatement("INSERT IGNORE INTO playerdata " +
                         "(UUID) VALUES (?)");
                 ps.setString(1, uuid.toString());
-                //ps.setBoolean(2, false);
                 ps.executeUpdate();
 
             }
@@ -173,6 +173,84 @@ public class MySQL {
             PreparedStatement ps = getConnection().prepareStatement("UPDATE playerdata SET HudEnabled=? WHERE UUID=?");
             ps.setBoolean(1, value);
             ps.setString(2, p.getUniqueId().toString());
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public String getDiscordIDFromUUID(Player p){
+        try{
+            PreparedStatement ps = getConnection().prepareStatement("SELECT ID FROM discordLinks WHERE UUID=?");
+            ps.setString(1, p.getUniqueId().toString());
+            ResultSet rs = ps.executeQuery();
+            String id = null;
+            if(rs.next()){
+                id = rs.getString("ID");
+            }
+            return id;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String getUUIDFromDiscordID(long ID){
+        try{
+            PreparedStatement ps = getConnection().prepareStatement("SELECT UUID FROM discordLinks WHERE ID=?");
+            ps.setLong(1, ID);
+            ResultSet rs = ps.executeQuery();
+            String id = null;
+            if(rs.next()){
+                id = rs.getString("UUID");
+            }
+            return id;
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void linkDiscord(Player p, long ID){
+        try{
+            PreparedStatement ps = getConnection().prepareStatement("INSERT IGNORE INTO discordLinks " +
+                    "(UUID, ID) VALUES (?, ?)");
+            ps.setString(1, p.getUniqueId().toString());
+            ps.setLong(2, ID);
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isLinked(Player p){
+        try{
+            PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM discordLinks WHERE UUID=?");
+            ps.setString(1, p.getUniqueId().toString());
+            ResultSet result = ps.executeQuery();
+            return result.next();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean isLinked(long ID){
+        try{
+            PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM discordLinks WHERE ID=?");
+            ps.setLong(1, ID);
+            ResultSet result = ps.executeQuery();
+            return result.next();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public void removeLink(Player p){
+        try{
+            PreparedStatement ps = getConnection().prepareStatement("DELETE FROM discordLinks WHERE UUID=?");
+            ps.setString(1, p.getUniqueId().toString());
             ps.executeUpdate();
         }catch (SQLException e){
             e.printStackTrace();

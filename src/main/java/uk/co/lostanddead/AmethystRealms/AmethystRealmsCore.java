@@ -17,6 +17,7 @@ import uk.co.lostanddead.AmethystRealms.handlers.welcomeInventoryHandler;
 import uk.co.lostanddead.AmethystRealms.handlers.KickHandler;
 import uk.co.lostanddead.AmethystRealms.tabcomplete.*;
 
+import java.awt.*;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -27,6 +28,7 @@ public final class AmethystRealmsCore extends JavaPlugin {
 
     public MySQL SQL;
     public KickHandler Kicker;
+    public DiscordBot bot;
     public SwearWordFinder Filter;
     public boolean shopOpen = false;
 
@@ -46,6 +48,8 @@ public final class AmethystRealmsCore extends JavaPlugin {
     public void onEnable() {
 
         this.saveDefaultConfig();
+
+        this.bot = new DiscordBot(this);
 
         this.SQL = new MySQL(this);
         this.Kicker = new KickHandler(this);
@@ -118,6 +122,12 @@ public final class AmethystRealmsCore extends JavaPlugin {
         this.getCommand("hat").setExecutor(new Hat(this));
         this.getCommand("hat").setTabCompleter(new BlankTabComplete(this));
 
+        this.getCommand("link").setExecutor(new Link(this));
+        this.getCommand("link").setTabCompleter(new BlankTabComplete(this));
+
+        this.getCommand("unlink").setExecutor(new UnLink(this));
+        this.getCommand("unlink").setTabCompleter(new BlankTabComplete(this));
+
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
@@ -138,8 +148,6 @@ public final class AmethystRealmsCore extends JavaPlugin {
             stand.remove();
         }
     }
-
-    public FileConfiguration getConfig(){ return this.getConfig(); }
 
     public MySQL getSQL(){
         return SQL;
@@ -164,6 +172,23 @@ public final class AmethystRealmsCore extends JavaPlugin {
         }
 
         return prefix;
+    }
+
+    public Color getColor(Player p){
+        Color color;
+        if(p.hasPermission("smp.owner")){
+            color = new Color(255, 36, 36);
+        }else if(p.hasPermission("smp.admin")){
+            color = new Color(170, 0, 170);
+        }else if(p.hasPermission("smp.mod")){
+            color = new Color(36, 255, 255);
+        }else if(p.hasPermission("smp.premium")){
+            color = new Color(255, 35, 255);
+        }else{
+            color = new Color(255, 170, 0);
+        }
+
+        return color;
     }
 
     public byte[] decodeHexString(String hexString) {

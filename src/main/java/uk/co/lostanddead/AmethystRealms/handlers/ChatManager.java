@@ -122,6 +122,8 @@ public class ChatManager implements Listener {
             },1L);
         }
 
+        core.bot.sendDiscordChat(p, message.toString());
+
 
     }
 }

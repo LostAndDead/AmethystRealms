@@ -1,4 +1,9 @@
 DiscordBotToken: ""
+LinkChannelID: 0
+ChatChannelID: 0
+OwnerID: 0
+ServerID: 0
+LinkedRoleID: 0
 
 SQLHost: ""
 SQLPort: ""

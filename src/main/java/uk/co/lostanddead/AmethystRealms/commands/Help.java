@@ -42,6 +42,8 @@ public class Help implements CommandExecutor {
                 sender.sendMessage("");
                 sender.sendMessage(net.md_5.bungee.api.ChatColor.of("#8d6acc") + "§lCommunication");
                 sender.sendMessage("");
+                sender.sendMessage("§7Link to Discord with §b/link");
+                sender.sendMessage("");
                 sender.sendMessage("§7Chat is global across the whole server.");
                 sender.sendMessage("");
                 sender.sendMessage("§7Player messages can also be seen above their head in-game, however this is limited to 50 characters to avoid spam.");
