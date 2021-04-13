@@ -1,12 +1,28 @@
+# Token for the Discord Bot
 DiscordBotToken: ""
-LinkChannelID: 0
+
+ServerID: 0
 ChatChannelID: 0
 OwnerID: 0
-ServerID: 0
-LinkedRoleID: 0
 
+LinkChannelID: 0
+LinkedRoleID: 0
+PremiumRoleID: 0
+
+WhitelistChannelID: 0
+WhitelistedRoleID: 0
+
+HelpChannelID: 0
+HelpLogChannelID: 0
+
+NicknameChannelID: 0
+
+#Supports MySQL storage only
 SQLHost: ""
 SQLPort: ""
 SQLDatabase: ""
 SQLUsername: ""
 SQLPassword: ""
+
+AllowedToWhitelist:
+  - 0

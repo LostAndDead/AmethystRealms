@@ -29,7 +29,6 @@ public class UnLink implements CommandExecutor {
         }
 
         if (args.length >= 1){
-            Bukkit.getLogger().info(args[0]);
             if (args[0].equalsIgnoreCase("confirm")){
                 core.bot.removeLink((Player) sender);
                 return true;
@@ -39,7 +38,7 @@ public class UnLink implements CommandExecutor {
             }
         }else{
             sender.sendMessage("也 " + ChatColor.RED + "You need to confirm" + ChatColor.RESET + " 也");
-            JSONMessage.create("").then("  [Confirm]").color(ChatColor.RED).style(ChatColor.BOLD).runCommand("/unlink confirm").send((Player) sender);
+            JSONMessage.create("").then("      [Confirm]").color(ChatColor.RED).style(ChatColor.BOLD).runCommand("/unlink confirm").send((Player) sender);
         }
 
         return true;

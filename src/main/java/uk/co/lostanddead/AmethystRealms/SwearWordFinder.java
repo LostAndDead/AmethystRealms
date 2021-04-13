@@ -1,5 +1,7 @@
 package uk.co.lostanddead.AmethystRealms;
 
+import org.bukkit.Bukkit;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -95,6 +97,7 @@ public class SwearWordFinder {
                     }
                     if(!ignore) {
                         badWords.add(wordToCheck);
+                        Bukkit.getLogger().info(wordToCheck);
                     }
                 }
             }

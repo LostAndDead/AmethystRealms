@@ -29,13 +29,15 @@ public class ChatManager implements Listener {
         SwearWordFinder filter = core.getSwearFilter();
         if(filter.filterText(event.getMessage())){
             p.sendMessage("也" + ChatColor.RED +" Please Use Appropriate Language " + ChatColor.RESET + "也");
-            Bukkit.getLogger().info(p.getDisplayName() + " message blocked for bad language");
             event.setCancelled(true);
+            return;
         }
 
         String premessage = event.getMessage().replaceAll("%","%%");
         StringBuilder message = new StringBuilder(CharMatcher.noneOf("abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"£$%^&*()-=_+\\,./|<>?[];'#{}:@~ ").removeFrom(premessage));
         String removed = CharMatcher.anyOf("abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"£$%^&*()-=_+\\,./|<>?[];'#{}:@~ ").removeFrom(premessage);
+
+        String orginal = message.toString();
 
         if(message.length() <= 0){
             p.sendMessage("也" + ChatColor.RED +" You can not send an empty message " + ChatColor.RESET + "也");
@@ -56,9 +58,9 @@ public class ChatManager implements Listener {
                 if (word.contains(pl.getDisplayName())){
                     pl.playSound(pl.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
                     if(p.hasPermission("smp.premium")){
-                        message.append(ChatColor.LIGHT_PURPLE).append(word).append(ChatColor.WHITE).append(" ");
+                        message.append(core.getPrefix(pl)).append(word).append(ChatColor.WHITE).append(" ");
                     }else{
-                        message.append(ChatColor.LIGHT_PURPLE).append(word).append(ChatColor.GRAY).append(" ");
+                        message.append(core.getPrefix(pl)).append(word).append(ChatColor.GRAY).append(" ");
                     }
                     foundName = true;
                 }
@@ -71,19 +73,19 @@ public class ChatManager implements Listener {
         final String altMessage = message.toString();
 
         if(p.hasPermission("smp.owner")){
-            event.setFormat("선 " + ChatColor.RED + p.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + String.format("%s", ChatColor.translateAlternateColorCodes('&', message.toString())));
+            event.setFormat("上 선 " + ChatColor.RED + p.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + String.format("%s", ChatColor.translateAlternateColorCodes('&', message.toString())));
         }
         else if(p.hasPermission("smp.admin")){
-            event.setFormat("我 " + ChatColor.DARK_PURPLE + p.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + String.format("%s", ChatColor.translateAlternateColorCodes('&', message.toString())));
+            event.setFormat("上 我 " + ChatColor.DARK_PURPLE + p.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + String.format("%s", ChatColor.translateAlternateColorCodes('&', message.toString())));
         }
         else if(p.hasPermission("smp.mod")){
-            event.setFormat("有 " + ChatColor.AQUA + p.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + String.format("%s", ChatColor.translateAlternateColorCodes('&', message.toString())));
+            event.setFormat("上 有 " + ChatColor.AQUA + p.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + String.format("%s", ChatColor.translateAlternateColorCodes('&', message.toString())));
         }
         else if(p.hasPermission("smp.premium")){
-            event.setFormat("到 " + ChatColor.LIGHT_PURPLE + p.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + String.format("%s", ChatColor.translateAlternateColorCodes('&', message.toString())));
+            event.setFormat("上 到 " + ChatColor.LIGHT_PURPLE + p.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + String.format("%s", ChatColor.translateAlternateColorCodes('&', message.toString())));
         }
         else{
-            event.setFormat("섚 " + ChatColor.GOLD + p.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.GRAY + String.format("%s", message.toString()));
+            event.setFormat("上 섚 " + ChatColor.GOLD + p.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.GRAY + String.format("%s", message.toString()));
         }
 
         if((message.length() <= 50) && !(core.playerMessages.contains(p.getUniqueId()))){
@@ -122,7 +124,7 @@ public class ChatManager implements Listener {
             },1L);
         }
 
-        core.bot.sendDiscordChat(p, message.toString());
+        core.bot.sendDiscordChat(p, orginal);
 
 
     }

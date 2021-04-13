@@ -32,7 +32,7 @@ public class Link implements CommandExecutor {
         String code = String.format("%04d", rand.nextInt(10000));
 
         core.bot.createPendingLink(code, (Player) sender);
-        sender.sendMessage("于 " + ChatColor.AQUA + "Send this code: " + ChatColor.GOLD + code + ChatColor.AQUA + " to #link on Discord" + ChatColor.RESET + " 于");
+        sender.sendMessage("于 " + ChatColor.AQUA + "Send this code: " + ChatColor.GOLD + code + ChatColor.AQUA + " to "+ ChatColor.GOLD+ "#link-me" + ChatColor.AQUA +" on Discord" + ChatColor.RESET + " 于");
         return true;
     }
 }

@@ -28,7 +28,6 @@ public class onJoin implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         event.setJoinMessage(null);
         Player p = event.getPlayer();
-        p.setAllowFlight(true);
         sql.createPlayer(p);
         core.playersJoining.add(p.getUniqueId());
 
@@ -82,7 +81,6 @@ public class onJoin implements Listener {
                 break;
             }
             case DECLINED: {
-                p.setAllowFlight(true);
                 core.getKicker().kick(p,"You Did Not Accept The Recourse Pack");
                 break;
             }
@@ -120,11 +118,9 @@ public class onJoin implements Listener {
                     }
                 }
                 core.playersJoining.remove(p.getUniqueId());
-                p.setAllowFlight(true);
                 break;
             }
             case FAILED_DOWNLOAD: {
-                p.setAllowFlight(true);
                 core.getKicker().kick(p,"Error While Loading Pack, This Is Likely A Server Issue.");
                 break;
             }

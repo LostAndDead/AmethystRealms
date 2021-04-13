@@ -9,6 +9,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import uk.co.lostanddead.AmethystRealms.commands.*;
 import uk.co.lostanddead.AmethystRealms.handlers.shopInventoryHandler;
 import uk.co.lostanddead.AmethystRealms.listeners.*;
@@ -18,6 +21,9 @@ import uk.co.lostanddead.AmethystRealms.handlers.KickHandler;
 import uk.co.lostanddead.AmethystRealms.tabcomplete.*;
 
 import java.awt.*;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
@@ -43,11 +49,24 @@ public final class AmethystRealmsCore extends JavaPlugin {
     public Hashtable<UUID, ArmorStand> playerMessages = new Hashtable<>();
     public List<UUID> playersJoining = new ArrayList<>();
     public List<UUID> playersWithHud = new ArrayList<>();
+    public JSONObject lang;
 
     @Override
     public void onEnable() {
 
         this.saveDefaultConfig();
+
+        File lang = new File(getDataFolder(), "lang.json");
+        JSONParser parser = new JSONParser();
+        Object parsed = null;
+        try {
+            parsed = parser.parse(new FileReader(lang.getPath()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        this.lang = (JSONObject) parsed;
 
         this.bot = new DiscordBot(this);
 
@@ -77,6 +96,7 @@ public final class AmethystRealmsCore extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new anvilRename(this), this);
         Bukkit.getPluginManager().registerEvents(new onLeave(this), this);
         Bukkit.getPluginManager().registerEvents(new serverPing(this), this);
+        Bukkit.getPluginManager().registerEvents(new onAdvancementDone(this), this);
 
         //tabPackets tp = new tabPackets(this);
 

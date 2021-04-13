@@ -14,7 +14,6 @@ public class Shop{
 
     private final AmethystRealmsCore core;
 
-
     public Shop(AmethystRealmsCore core){this.core = core;}
 
     public void open(Player p){
