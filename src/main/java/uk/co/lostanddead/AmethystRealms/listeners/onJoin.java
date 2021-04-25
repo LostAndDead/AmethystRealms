@@ -54,12 +54,14 @@ public class onJoin implements Listener {
                 stand.setCustomName(ChatColor.GRAY + "Loading");
                 stand.setCustomNameVisible(true);
                 stand.setMarker(true);
+                core.playerMessages.put(p.getUniqueId(), stand);
                 new BukkitRunnable(){
                     @Override
                     public void run() {
                         if(!core.playersJoining.contains(p.getUniqueId())){
                             this.cancel();
                             stand.remove();
+                            core.playerMessages.remove(p.getUniqueId());
                         }else{
                             if (p.isSneaking()) {
                                 stand.teleport(p.getLocation().add(0, 1.65, 0));
@@ -121,7 +123,7 @@ public class onJoin implements Listener {
                 break;
             }
             case FAILED_DOWNLOAD: {
-                core.getKicker().kick(p,"Error While Loading Pack, This Is Likely A Server Issue.");
+                //core.getKicker().kick(p,"Error While Loading Pack, This Is Likely A Server Issue.");
                 break;
             }
         }

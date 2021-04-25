@@ -16,6 +16,7 @@ import org.javacord.api.entity.message.MessageBuilder;
 import org.javacord.api.entity.message.Reaction;
 import org.javacord.api.entity.message.embed.EmbedBuilder;
 import org.javacord.api.entity.permission.Role;
+import org.javacord.api.entity.server.Ban;
 import org.javacord.api.entity.server.Server;
 import org.javacord.api.entity.user.User;
 
@@ -47,18 +48,18 @@ public class DiscordBot {
                 .setToken(core.getConfig().getString("DiscordBotToken")).setAllIntents()
                 .login().join();
 
-        api.updateActivity(ActivityType.COMPETING, "Development");
+        //api.updateActivity(ActivityType.COMPETING, "Development");
 
         Bukkit.getLogger().info(api.createBotInvite());
 
-        api.addMessageCreateListener(event -> {
-            if(event.getMessageAuthor().getId() == api.getClientId()) {
-                return;
-            }
-            if (core.getSwearFilter().filterText(event.getMessageContent())){
-                event.getMessage().delete();
-            }
-        });
+        //api.addMessageCreateListener(event -> {
+        //    if(event.getMessageAuthor().getId() == api.getClientId()) {
+        //        return;
+        //    }
+        //    if (core.getSwearFilter().filterText(event.getMessageContent())){
+        //        event.getMessage().delete();
+        //    }
+        //});
 
         api.addMessageCreateListener(event ->{
             if(event.getMessageAuthor().getId() == api.getClientId()) {
@@ -95,7 +96,7 @@ public class DiscordBot {
                 new MessageBuilder()
                         .setEmbed(new EmbedBuilder()
                                 .setTitle("\uD83D\uDD50 WAITING")
-                                .setDescription("We are still preparing to open, there is a small area for you to chill while we wait for the server to be ready. We don't have an ETA at the moment but it should be soon after the release of 1.17 so we can make any changes needed for the new version to our system.")
+                                .setDescription("We are still preparing to open, there is a small area for you to chill while we wait for the server to be ready. The server is currently set to release at 12:00-GMT on the 1st of May, the time may vary slightly but this is the current set time.")
                                 .setColor(new java.awt.Color(141, 106, 204))
                         )
                         .send(event.getChannel());
@@ -116,7 +117,7 @@ public class DiscordBot {
                 new MessageBuilder()
                         .setEmbed(new EmbedBuilder()
                                 .setColor(new java.awt.Color(141, 106, 204))
-                                .setTitle("Play.AmethystRealms.co.uk")
+                                .setTitle("play.amethystrealms.co.uk")
                                 .setDescription("Amethyst Realms is a whitelisted invitational based server, it is built as a way to spend time with friends and make some amazing builds. Too many hours of my time has been poured into making this server as it is 100% custom coded, so please, enjoy the game and have fun. *-LostAndDead*")
                                 .addField("1. :sparkling_heart: Respect", "> This server is a closed community so it is vital we respect the other players, regardless of the situation. Any arguments or differences in opinions should be settled through civil discussion.")
                                 .addField("2. :shield: Inappropriate Content", "> We have a zero tolerance on inappropriate content (Swearing, pornographic and general offensive content) , all chats are moderated by humans and robots, robots (and humans) do make errors sometimes so be patient with them.")
@@ -140,7 +141,7 @@ public class DiscordBot {
                         .send(event.getChannel());
                 new MessageBuilder()
                         .setEmbed(new EmbedBuilder()
-                                .setTitle("⛓ LINK ACCOUNTS")
+                                .setTitle("\uD83D\uDD17 LINK ACCOUNTS")
                                 .setDescription("To gain access to the Discord you must link your accounts, run `/link` in-game and send the code it gives you in this channel. Then the rest of the server will unlock for you.")
                                 .setColor(new java.awt.Color(141, 106, 204))
                         )
@@ -304,6 +305,7 @@ public class DiscordBot {
                     Message msg = event.getChannel().sendMessage("<@"+ event.getMessageAuthor().getId() + "> You must be linked the send messages.").join();
 
                     timer.schedule((Runnable) msg::delete,deleteDelay, TimeUnit.SECONDS);
+                    event.getMessage().delete();
                     return;
                 }
                 UUID uuid = UUID.fromString(core.getSQL().getUUIDFromDiscordID(event.getMessageAuthor().getId()));
@@ -312,14 +314,16 @@ public class DiscordBot {
                     Message msg = event.getChannel().sendMessage("<@"+ event.getMessageAuthor().getId() + "> You must be online in Minecraft to chat.").join();
 
                     timer.schedule((Runnable) msg::delete,deleteDelay, TimeUnit.SECONDS);
+                    event.getMessage().delete();
                     return;
                 }
                 if (core.getSwearFilter().filterText(event.getMessageContent())){
+                    event.getMessage().delete();
                     return;
                 }else{
                     Bukkit.getScheduler().runTaskLater(core, () -> p.chat(event.getMessageContent()), 0);
                 }
-                timer.schedule((Runnable) event.getMessage()::delete,userDeleteDelay, TimeUnit.SECONDS);
+                event.getMessage().delete();
             }
         });
 
@@ -358,7 +362,8 @@ public class DiscordBot {
                     timer.schedule((Runnable) event.getMessage()::delete,userDeleteDelay, TimeUnit.SECONDS);
                     return;
                 }
-                if (event.getMessageContent().length() > 10 || core.getSwearFilter().filterText(event.getMessageContent())){
+                String removed = CharMatcher.anyOf("abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"£&$%^&*()-=_+\\,./|<>?[];'#{}:@~ ").removeFrom(event.getMessageContent());
+                if (event.getMessageContent().length() > 10 || core.getSwearFilter().filterText(event.getMessageContent()) || removed.length() > 0){
                     Message msg = event.getChannel().sendMessage("<@"+ event.getMessageAuthor().getId() + "> Invalid nickname.").join();
 
                     ScheduledExecutorService timer = api.getThreadPool().getScheduler();
@@ -368,8 +373,19 @@ public class DiscordBot {
                     return;
                 }
 
-                UUID uuid = UUID.fromString(core.getSQL().getUUIDFromDiscordID(event.getMessageAuthor().getId()));
-                OfflinePlayer p = Bukkit.getOfflinePlayer(uuid);
+                Player p = Bukkit.getPlayer(UUID.fromString(core.getSQL().getUUIDFromDiscordID(event.getMessageAuthor().getId())));
+
+                if(p == null){
+                    Message msg = event.getChannel().sendMessage("<@"+ event.getMessageAuthor().getId() + "> You must be online in Minecraft to change your nickname").join();
+
+                    ScheduledExecutorService timer = api.getThreadPool().getScheduler();
+
+                    timer.schedule((Runnable) msg::delete,deleteDelay, TimeUnit.SECONDS);
+                    timer.schedule((Runnable) event.getMessage()::delete,userDeleteDelay, TimeUnit.SECONDS);
+                    return;
+                }
+
+                //p.setDisplayName(event.getMessageContent());
 
                 User user = event.getMessageAuthor().asUser().get();
                 Server server = api.getServerById(core.getConfig().getLong("ServerID")).get();
@@ -446,5 +462,16 @@ public class DiscordBot {
                         .setColor(core.getColor(p))
                 )
                 .send((TextChannel) channel);
+    }
+
+    public void banDiscord(Player p){
+        User user = null;
+        try {
+            user = api.getUserById(core.getSQL().getDiscordIDFromUUID(p)).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        Server server = api.getServerById(core.getConfig().getLong("ServerID")).get();
+        server.banUser(user);
     }
 }

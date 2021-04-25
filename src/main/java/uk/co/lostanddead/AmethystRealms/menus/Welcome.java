@@ -22,7 +22,7 @@ public class Welcome {
         Inventory pinv = p.getInventory();
         pinv.clear();
         inv.setItem(4, createItem(Material.MAP, "§3§lMap of Adventure", "§7Drag me to the slot bellow", "§7to confirm you have agreed", "§7to the rules."));
-        pinv.setItem(16, createItem(Material.BARRIER, "§d§lDiscord", "§dJoin The Discord For Full Rules","§7https://discord.gg/EWBKRTZxGt"));
+        pinv.setItem(16, createItem(Material.BARRIER, "§d§lDiscord", "§dJoin the Discord for full rules","§7https://discord.gg/EWMuhAkYkD"));
         pinv.setItem(0, createItem(Material.BARRIER, "§c§lDecline", ""));
         pinv.setItem(4, null);
         pinv.setItem(8, createItem(Material.BARRIER, "§2§lAccept", "§cYou must also move the map","§cto the right slot"));

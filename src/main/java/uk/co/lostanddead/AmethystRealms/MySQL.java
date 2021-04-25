@@ -26,7 +26,7 @@ public class MySQL {
             String database = core.getConfig().getString("SQLDatabase");
             String username = core.getConfig().getString("SQLUsername");
             String password = core.getConfig().getString("SQLPassword");
-            connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=true", username, password);
+            connection = DriverManager.getConnection("jdbc:mysql://" + host + ":" + port + "/" + database + "?useSSL=true&autoReconnect=true", username, password);
         }
     }
 
@@ -54,6 +54,15 @@ public class MySQL {
                 ps.executeUpdate();
 
             }
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void ping(){
+        try{
+            PreparedStatement ps = getConnection().prepareStatement("SELECT * FROM playerdata");
+            ResultSet result = ps.executeQuery();
         }catch (SQLException e){
             e.printStackTrace();
         }

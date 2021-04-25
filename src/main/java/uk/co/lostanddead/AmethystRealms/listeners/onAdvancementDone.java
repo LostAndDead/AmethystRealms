@@ -23,7 +23,6 @@ public class onAdvancementDone implements Listener {
         Player p = event.getPlayer();
         Advancement adv = event.getAdvancement();
         String key = adv.getKey().getKey().replace("/", ".");
-        Bukkit.getLogger().info(key);
         if (key.contains("recipes") || key.contains("root")){
             return;
         }

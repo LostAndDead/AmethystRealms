@@ -13,4 +13,8 @@ public class KickHandler {
     public void kick(Player p, String reason){
         p.kickPlayer(ChatColor.translateAlternateColorCodes('&', "&cYou Were Kicked!\n\n&8Reason:\n\n&7") +reason);
     }
+
+    public void ban(Player p, String reason){
+        p.kickPlayer(ChatColor.translateAlternateColorCodes('&', "&cYou Were Banned!\n\n&8Reason:\n\n&7") +reason);
+    }
 }

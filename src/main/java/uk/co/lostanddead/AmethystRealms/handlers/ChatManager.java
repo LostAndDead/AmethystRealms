@@ -37,7 +37,7 @@ public class ChatManager implements Listener {
         StringBuilder message = new StringBuilder(CharMatcher.noneOf("abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"£$%^&*()-=_+\\,./|<>?[];'#{}:@~ ").removeFrom(premessage));
         String removed = CharMatcher.anyOf("abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"£$%^&*()-=_+\\,./|<>?[];'#{}:@~ ").removeFrom(premessage);
 
-        String orginal = message.toString();
+        String original = message.toString();
 
         if(message.length() <= 0){
             p.sendMessage("也" + ChatColor.RED +" You can not send an empty message " + ChatColor.RESET + "也");
@@ -123,9 +123,6 @@ public class ChatManager implements Listener {
                 }
             },1L);
         }
-
-        core.bot.sendDiscordChat(p, orginal);
-
-
+        core.bot.sendDiscordChat(p, original);
     }
 }

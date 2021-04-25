@@ -8,19 +8,19 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import uk.co.lostanddead.AmethystRealms.AmethystRealmsCore;
 
-public class Kick implements CommandExecutor {
+public class Ban implements CommandExecutor {
 
     private final AmethystRealmsCore core;
 
-    public Kick(AmethystRealmsCore core){this.core = core;}
-    
+    public Ban(AmethystRealmsCore core){this.core = core;}
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if(args.length == 0){
             sender.sendMessage("也 " + ChatColor.RED + "Player Not Found" + ChatColor.RESET + " 也");
             return true;
         }
-        Player toKick = Bukkit.getPlayer(args[0]);
+        Player toBan = Bukkit.getPlayer(args[0]);
         StringBuilder reason = new StringBuilder();
         for (String i : args){
             if (!i.equals(args[0])){
@@ -30,15 +30,16 @@ public class Kick implements CommandExecutor {
         if (reason.toString().equals("")){
             reason = new StringBuilder("No Reason Given ");
         }
-        if(toKick == null){
+        if(toBan == null){
             sender.sendMessage("也 " + ChatColor.RED + "Player Not Found" + ChatColor.RESET + " 也");
             return true;
-        }else if(toKick.hasPermission("smp.admin")){
-            sender.sendMessage("也 " + ChatColor.RED + "This Player Can't Be Kicked" + ChatColor.RESET + " 也");
+        }else if(toBan.hasPermission("smp.admin")){
+            sender.sendMessage("也 " + ChatColor.RED + "This Player Can't Be Banned" + ChatColor.RESET + " 也");
             return true;
         }else{
-            core.getKicker().kick(toKick, reason.toString());
-            sender.sendMessage("于 " + ChatColor.GRAY + toKick.getDisplayName() + ChatColor.AQUA +" Has Been Kicked For " + ChatColor.GRAY + reason + ChatColor.RESET + "于");
+            core.getKicker().ban(toBan, reason.toString());
+            sender.sendMessage("于 " + ChatColor.GRAY + toBan.getDisplayName() + ChatColor.AQUA +" Has Been Banned For " + ChatColor.GRAY + reason + ChatColor.RESET + "于");
+            core.bot.banDiscord(toBan);
             return true;
         }
     }

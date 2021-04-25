@@ -18,6 +18,11 @@ public class UnMute implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if(args.length == 0){
+            sender.sendMessage("也 " + ChatColor.RED + "Player Not Found" + ChatColor.RESET + " 也");
+            return true;
+        }
+
         Player toUnMute = Bukkit.getPlayer(args[0]);
 
         if(toUnMute == null){

@@ -16,6 +16,10 @@ public class Msg implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if(args.length == 0){
+            sender.sendMessage("也 " + ChatColor.RED + "Player Not Found" + ChatColor.RESET + " 也");
+            return true;
+        }
         Player recipient = Bukkit.getPlayer(args[0]);
         StringBuilder msg = new StringBuilder();
         for (String i : args){

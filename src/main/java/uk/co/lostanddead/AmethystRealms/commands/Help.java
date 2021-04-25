@@ -19,25 +19,29 @@ public class Help implements CommandExecutor {
             sender.sendMessage("");
             sender.sendMessage(net.md_5.bungee.api.ChatColor.of("#8d6acc") + "§lTopics");
             sender.sendMessage("");
-            sender.sendMessage("§61. §7Shop");
+            sender.sendMessage("§61. §cShop (NYI)");
             sender.sendMessage("§62. §7Communication");
             sender.sendMessage("§63. §7Premium");
             sender.sendMessage("§64. §7Other");
+            sender.sendMessage("");
+            sender.sendMessage("§7Do /help (Subtopic) for more info");
             sender.sendMessage("");
             return true;
         }
 
         switch (args[0].toLowerCase()){
+            case "1":
             case "shop": {
                 sender.sendMessage("");
-                sender.sendMessage(net.md_5.bungee.api.ChatColor.of("#8d6acc") + "§lThe Shop");
+                sender.sendMessage(net.md_5.bungee.api.ChatColor.of("#8d6acc") + "§l§cThe Shop (NYI)");
                 sender.sendMessage("");
                 sender.sendMessage("§7The shop opens every hour for 10 minutes, once it opens you will see a message in chat.");
                 sender.sendMessage("");
-                sender.sendMessage("§7You can spend your " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + "Amethyst §7here, what items are available varies, but you can be sure you will always be able to get a map encase you lose yours.");
+                sender.sendMessage("§7You can spend your " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + "Amethyst §7here, what items are available varies, but you can be sure you will always be able to get a map incase you lose yours.");
                 sender.sendMessage("");
                 return true;
             }
+            case "2":
             case "communication": {
                 sender.sendMessage("");
                 sender.sendMessage(net.md_5.bungee.api.ChatColor.of("#8d6acc") + "§lCommunication");
@@ -54,6 +58,7 @@ public class Help implements CommandExecutor {
                 sender.sendMessage("");
                 return true;
             }
+            case "3":
             case "premium": {
                 sender.sendMessage("");
                 sender.sendMessage(ChatColor.LIGHT_PURPLE + "§lPremium");
@@ -70,6 +75,7 @@ public class Help implements CommandExecutor {
                 sender.sendMessage("");
                 return true;
             }
+            case "4":
             case "other": {
                 sender.sendMessage("");
                 sender.sendMessage(net.md_5.bungee.api.ChatColor.of("#8d6acc") + "§lOther");

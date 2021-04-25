@@ -5,7 +5,6 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -38,9 +37,9 @@ public final class AmethystRealmsCore extends JavaPlugin {
     public SwearWordFinder Filter;
     public boolean shopOpen = false;
 
-    public String defaultPack = "https://www.dropbox.com/s/pza073sh69zrc0f/AmethystRealms.zip?dl=1";
-    public String defaultPackHash = "1B8D36CF94A2A68799C97D367EBCEBA8FAE59688";
-    public String noPack = "https://www.dropbox.com/s/3m85p59gmky347d/Blank%20Pack.zip?dl=1";
+    public String defaultPack = "https://www.lostanddead.co.uk/AmethystRealms.zip";
+    public String defaultPackHash = "D16BC8A2ABEA0F525D6F88383BBAD34D9F96FF18";
+    public String noPack = "https://www.lostanddead.co.uk/BlankPack.zip";
     public String noPackHash = "E4245B80F7519424E3393B38733900BEBEE469DE";
     public String devPack = "";
     public String devPackHash = "";
@@ -97,6 +96,8 @@ public final class AmethystRealmsCore extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new onLeave(this), this);
         Bukkit.getPluginManager().registerEvents(new serverPing(this), this);
         Bukkit.getPluginManager().registerEvents(new onAdvancementDone(this), this);
+        Bukkit.getPluginManager().registerEvents(new endermanPickup(this), this);
+        Bukkit.getPluginManager().registerEvents(new onDeath(this), this);
 
         //tabPackets tp = new tabPackets(this);
 
@@ -148,6 +149,15 @@ public final class AmethystRealmsCore extends JavaPlugin {
         this.getCommand("unlink").setExecutor(new UnLink(this));
         this.getCommand("unlink").setTabCompleter(new BlankTabComplete(this));
 
+        this.getCommand("rules").setExecutor(new Rules(this));
+        this.getCommand("rules").setTabCompleter(new BlankTabComplete(this));
+
+        this.getCommand("takemetothemoon").setExecutor(new TakeMeToTheMoon(this));
+        this.getCommand("takemetothemoon").setTabCompleter(new UnMuteTabComplete(this));
+
+        this.getCommand("ban").setExecutor(new Ban(this));
+        this.getCommand("ban").setTabCompleter(new KickTabComplete(this));
+
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
             public void run() {
@@ -157,6 +167,13 @@ public final class AmethystRealmsCore extends JavaPlugin {
                 }
             }
         }, 10L, 5l);
+
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+            @Override
+            public void run() {
+                getSQL().ping();
+            }
+        }, 6000, 6000);
     }
 
     @Override
