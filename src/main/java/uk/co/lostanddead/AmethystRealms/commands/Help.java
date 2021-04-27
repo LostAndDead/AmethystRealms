@@ -30,17 +30,17 @@ public class Help implements CommandExecutor {
         }
 
         switch (args[0].toLowerCase()){
-            case "1":
-            case "shop": {
-                sender.sendMessage("");
-                sender.sendMessage(net.md_5.bungee.api.ChatColor.of("#8d6acc") + "§l§cThe Shop (NYI)");
-                sender.sendMessage("");
-                sender.sendMessage("§7The shop opens every hour for 10 minutes, once it opens you will see a message in chat.");
-                sender.sendMessage("");
-                sender.sendMessage("§7You can spend your " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + "Amethyst §7here, what items are available varies, but you can be sure you will always be able to get a map incase you lose yours.");
-                sender.sendMessage("");
-                return true;
-            }
+            //case "1":
+            //case "shop": {
+            //    sender.sendMessage("");
+            //    sender.sendMessage(net.md_5.bungee.api.ChatColor.of("#8d6acc") + "§l§cThe Shop (NYI)");
+            //    sender.sendMessage("");
+            //    sender.sendMessage("§7The shop opens every hour for 10 minutes, once it opens you will see a message in chat.");
+            //    sender.sendMessage("");
+            //    sender.sendMessage("§7You can spend your " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + "Amethyst §7here, what items are available varies, but you can be sure you will always be able to get a map incase you lose yours.");
+            //    sender.sendMessage("");
+            //    return true;
+            //}
             case "2":
             case "communication": {
                 sender.sendMessage("");
@@ -70,6 +70,8 @@ public class Help implements CommandExecutor {
                 sender.sendMessage("§7You can use color codes in chat.");
                 sender.sendMessage("");
                 sender.sendMessage("§7You can rename items with color codes in an anvil.");
+                sender.sendMessage("");
+                sender.sendMessage("§7You can also change your nickname on Discord.");
                 sender.sendMessage("");
                 sender.sendMessage("§b/hat §7Puts your held item on your head.");
                 sender.sendMessage("");

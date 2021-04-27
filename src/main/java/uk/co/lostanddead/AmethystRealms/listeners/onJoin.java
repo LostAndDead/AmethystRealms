@@ -39,6 +39,11 @@ public class onJoin implements Listener {
             p.setPlayerListFooter("\n          §7Currently " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + Bukkit.getOnlinePlayers().size() + " §7Players Online          \n");
         }
 
+        if (p.hasPermission("smp.premium")){
+            core.bot.setPremium(p, true);
+        }else{
+            core.bot.setPremium(p, false);
+        }
 
         new onJoinRunnable(core, p).runTaskTimer(core, 0L, 1L);
 

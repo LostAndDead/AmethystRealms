@@ -474,4 +474,26 @@ public class DiscordBot {
         Server server = api.getServerById(core.getConfig().getLong("ServerID")).get();
         server.banUser(user);
     }
+
+    public void setPremium(Player p, boolean value){
+
+        User user = null;
+        try {
+            user = api.getUserById(core.getSQL().getDiscordIDFromUUID(p)).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        if (user == null){
+            p.sendMessage("也 " + ChatColor.RED + "There was an error syncing roles, contact staff!" + ChatColor.RESET + " 也");
+            return;
+        }
+
+        Role role = api.getRoleById(core.getConfig().getLong("PremiumRoleID")).get();
+        if (value){
+            user.addRole(role);
+        }else{
+            user.removeRole(role);
+        }
+    }
 }
