@@ -37,12 +37,12 @@ public final class AmethystRealmsCore extends JavaPlugin {
     public SwearWordFinder Filter;
     public boolean shopOpen = false;
 
-    public String defaultPack = "https://www.lostanddead.co.uk/AmethystRealms.zip";
-    public String defaultPackHash = "D16BC8A2ABEA0F525D6F88383BBAD34D9F96FF18";
-    public String noPack = "https://www.lostanddead.co.uk/BlankPack.zip";
-    public String noPackHash = "E4245B80F7519424E3393B38733900BEBEE469DE";
-    public String devPack = "";
-    public String devPackHash = "";
+    public String defaultPack;
+    public String defaultPackHash;
+    public String noPack;
+    public String noPackHash;
+    public String devPack;
+    public String devPackHash;
 
     public List<Location> seatsTaken = new ArrayList<>();
     public Hashtable<UUID, ArmorStand> playerMessages = new Hashtable<>();
@@ -54,6 +54,13 @@ public final class AmethystRealmsCore extends JavaPlugin {
     public void onEnable() {
 
         this.saveDefaultConfig();
+
+        this.defaultPack = getConfig().getString("defaultPack");
+        this.defaultPackHash = getConfig().getString("defaultPackHash");
+        this.noPack = getConfig().getString("noPack");
+        this.noPackHash = getConfig().getString("noPackHash");
+        this.devPack = getConfig().getString("devPack");
+        this.devPackHash = getConfig().getString("devPackHash");
 
         File lang = new File(getDataFolder(), "lang.json");
         JSONParser parser = new JSONParser();
@@ -157,6 +164,9 @@ public final class AmethystRealmsCore extends JavaPlugin {
 
         this.getCommand("ban").setExecutor(new Ban(this));
         this.getCommand("ban").setTabCompleter(new KickTabComplete(this));
+
+        this.getCommand("reloadconfig").setExecutor(new ReloadConfig(this));
+        this.getCommand("reloadconfig").setTabCompleter(new BlankTabComplete(this));
 
         Bukkit.getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
             @Override
