@@ -50,7 +50,7 @@ public class TakeMeToTheMoon implements CommandExecutor {
                 world.spawnParticle(Particle.CLOUD, p.getLocation().getX(), p.getLocation().getY() - 0.15, p.getLocation().getZ(), 5, 0.1, 0.2, 0.1, 0.01);
                 world.spawnParticle(Particle.FLAME, p.getLocation().getX(), p.getLocation().getY() - 0.15, p.getLocation().getZ(), 3, 0.1, 0.2, 0.1, 0.02);
                 count ++;
-                if (count >= 120){
+                if (count >= 140){
                     this.cancel();
                 }
             }
@@ -63,7 +63,7 @@ public class TakeMeToTheMoon implements CommandExecutor {
                 p.removePotionEffect(PotionEffectType.LEVITATION);
                 p.addPotionEffect(effect);
             }
-        }, 240);
+        }, 260);
         new BukkitRunnable(){
             int count = 0;
             @Override
@@ -75,7 +75,7 @@ public class TakeMeToTheMoon implements CommandExecutor {
                     this.cancel();
                 }
             }
-        }.runTaskTimer(core, 240, 2);
+        }.runTaskTimer(core, 260, 2);
 
         Bukkit.getScheduler().runTaskLater(core, new Runnable() {
             @Override
@@ -92,7 +92,7 @@ public class TakeMeToTheMoon implements CommandExecutor {
                 p.teleport(startLoc);
                 p.sendMessage(ChatColor.GRAY + "JK, you are fine.");
             }
-        }, 590);
+        }, 600);
         return true;
     }
 }
