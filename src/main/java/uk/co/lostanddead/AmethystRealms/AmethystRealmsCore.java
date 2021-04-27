@@ -89,7 +89,7 @@ public final class AmethystRealmsCore extends JavaPlugin {
         }
 
         if(SQL.isConnected()){
-            Bukkit.getLogger().info("Database connected");
+            Bukkit.getLogger().info("Database connected successfully");
         }
 
         // Plugin startup logic
@@ -184,6 +184,10 @@ public final class AmethystRealmsCore extends JavaPlugin {
                 getSQL().ping();
             }
         }, 6000, 6000);
+
+        for (Player p : Bukkit.getOnlinePlayers()){
+            p.setResourcePack(defaultPack, decodeHexString(defaultPackHash));
+        }
     }
 
     @Override
@@ -194,6 +198,7 @@ public final class AmethystRealmsCore extends JavaPlugin {
             ArmorStand stand = playerMessages.get(key);
             stand.remove();
         }
+        bot.getApi().disconnect();
     }
 
     public MySQL getSQL(){
