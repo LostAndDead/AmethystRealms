@@ -226,6 +226,23 @@ public final class AmethystRealmsCore extends JavaPlugin {
         return prefix;
     }
 
+    public ChatColor getPrefixColor(Player p){
+        ChatColor prefix;
+        if(p.hasPermission("smp.owner")){
+            prefix = ChatColor.RED;
+        }else if(p.hasPermission("smp.admin")){
+            prefix = ChatColor.DARK_PURPLE;
+        }else if(p.hasPermission("smp.mod")){
+            prefix = ChatColor.AQUA;
+        }else if(p.hasPermission("smp.premium")){
+            prefix = ChatColor.LIGHT_PURPLE;
+        }else{
+            prefix = ChatColor.GOLD;
+        }
+
+        return prefix;
+    }
+
     public Color getColor(Player p){
         Color color;
         if(p.hasPermission("smp.owner")){

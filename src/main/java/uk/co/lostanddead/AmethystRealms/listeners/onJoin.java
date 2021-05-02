@@ -32,17 +32,21 @@ public class onJoin implements Listener {
         core.playersJoining.add(p.getUniqueId());
 
         p.setResourcePack(core.defaultPack, core.decodeHexString(core.defaultPackHash));
-        p.setPlayerListHeader("\n          §7Welcome To " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + "Amethyst Realms!          \n");
-        if(Bukkit.getOnlinePlayers().size() == 1){
-            p.setPlayerListFooter("\n          §7You Are Alone " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + ":(          \n");
-        }else{
-            p.setPlayerListFooter("\n          §7Currently " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + Bukkit.getOnlinePlayers().size() + " §7Players Online          \n");
+        for (Player pl : Bukkit.getOnlinePlayers()){
+            pl.setPlayerListHeader("\n          §7Welcome To " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + "Amethyst Realms!          \n");
+            if(Bukkit.getOnlinePlayers().size() == 1){
+                pl.setPlayerListFooter("\n          §7You Are Alone " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + ":(          \n");
+            }else{
+                pl.setPlayerListFooter("\n          §7Currently " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + Bukkit.getOnlinePlayers().size() + " §7Players Online          \n");
+            }
         }
 
-        if (p.hasPermission("smp.premium")){
-            core.bot.setPremium(p, true);
-        }else{
-            core.bot.setPremium(p, false);
+        if(core.getSQL().isLinked(p)) {
+            if (p.hasPermission("smp.premium")) {
+                core.bot.setPremium(p, true);
+            } else {
+                core.bot.setPremium(p, false);
+            }
         }
 
         new onJoinRunnable(core, p).runTaskTimer(core, 0L, 1L);

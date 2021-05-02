@@ -24,12 +24,14 @@ public class onLeave implements Listener {
         core.playerMessages.remove(p.getUniqueId());
         core.playersJoining.remove(p.getUniqueId());
 
+        int pOnline = Bukkit.getOnlinePlayers().size()-1;
+
         for(Player pl : Bukkit.getOnlinePlayers()){
             pl.sendMessage(ChatColor.translateAlternateColorCodes('&', "&8[&c-&8] &r" + prefix + p.getName()));
             if(Bukkit.getOnlinePlayers().size()-1 == 1){
                 pl.setPlayerListFooter("\n          §7You Are Alone " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + ":(          \n");
             }else{
-                pl.setPlayerListFooter("\n          §7Currently " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + Bukkit.getOnlinePlayers().size() + " §7Players Online          \n");
+                pl.setPlayerListFooter("\n          §7Currently " + net.md_5.bungee.api.ChatColor.of("#8d6acc") + pOnline + " §7Players Online          \n");
             }
         }
     }

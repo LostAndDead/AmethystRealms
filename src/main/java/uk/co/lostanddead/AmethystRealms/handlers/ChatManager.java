@@ -58,9 +58,9 @@ public class ChatManager implements Listener {
                 if (word.contains(pl.getDisplayName())){
                     pl.playSound(pl.getLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, 1f, 1f);
                     if(p.hasPermission("smp.premium")){
-                        message.append(core.getPrefix(pl)).append(word).append(ChatColor.WHITE).append(" ");
+                        message.append(core.getPrefixColor(pl)).append(word).append(ChatColor.WHITE).append(" ");
                     }else{
-                        message.append(core.getPrefix(pl)).append(word).append(ChatColor.GRAY).append(" ");
+                        message.append(core.getPrefixColor(pl)).append(word).append(ChatColor.GRAY).append(" ");
                     }
                     foundName = true;
                 }

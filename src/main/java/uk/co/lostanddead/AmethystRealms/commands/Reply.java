@@ -36,8 +36,8 @@ public class Reply implements CommandExecutor {
             sender.sendMessage("也 " + ChatColor.RED + "You Cant Message Yourself" + ChatColor.RESET + " 也");
             return true;
         }else{
-            recipient.sendMessage(ChatColor.DARK_AQUA + "MSG" + ChatColor.RESET + "上 " + ChatColor.DARK_GRAY + "From: " + ChatColor.RESET + core.getPrefix((Player) sender)+ ((Player) sender).getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + msg);
-            sender.sendMessage(ChatColor.DARK_AQUA + "MSG" + ChatColor.RESET + "上 " + ChatColor.DARK_GRAY + "To: " + ChatColor.RESET + core.getPrefix(recipient) + recipient.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + msg);
+            recipient.sendMessage(ChatColor.DARK_AQUA + "MSG " + ChatColor.RESET + "上 " + ChatColor.DARK_GRAY + "From: " + ChatColor.RESET + core.getPrefix((Player) sender)+ ((Player) sender).getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + msg);
+            sender.sendMessage(ChatColor.DARK_AQUA + "MSG " + ChatColor.RESET + "上 " + ChatColor.DARK_GRAY + "To: " + ChatColor.RESET + core.getPrefix(recipient) + recipient.getDisplayName() + ChatColor.DARK_GRAY + " » " + ChatColor.WHITE + msg);
             return true;
         }
     }

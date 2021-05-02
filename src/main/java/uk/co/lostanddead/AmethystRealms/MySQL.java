@@ -265,4 +265,14 @@ public class MySQL {
             e.printStackTrace();
         }
     }
+
+    public void removeLink(long uuid){
+        try{
+            PreparedStatement ps = getConnection().prepareStatement("DELETE FROM discordLinks WHERE ID=?");
+            ps.setLong(1, uuid);
+            ps.executeUpdate();
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+    }
 }

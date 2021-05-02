@@ -33,8 +33,8 @@ public class DiscordBot {
     private final DiscordApi api;
 
     public Hashtable<String, UUID> pendingLinks = new Hashtable<>();
-    private final int deleteDelay = 5;
-    private final int userDeleteDelay = 2;
+    private final int deleteDelay = 3;
+    private final int userDeleteDelay = 1;
 
     public DiscordApi getApi() {
         return api;
@@ -397,6 +397,20 @@ public class DiscordBot {
 
                 timer.schedule((Runnable) msg::delete,deleteDelay, TimeUnit.SECONDS);
                 timer.schedule((Runnable) event.getMessage()::delete,userDeleteDelay, TimeUnit.SECONDS);
+            }
+        });
+
+        api.addServerMemberLeaveListener(event -> {
+            if (event.getServer().getId() == core.getConfig().getLong("ServerID")){
+                if (core.getSQL().isLinked(event.getUser().getId())){
+                    Player p = Bukkit.getPlayer(UUID.fromString(core.getSQL().getUUIDFromDiscordID(event.getUser().getId())));
+
+                    if(p != null){
+                        p.sendMessage("也 " + ChatColor.RED + "You have left the Discord and have been unlinked" + ChatColor.RESET + " 也");
+                    }
+
+                    core.getSQL().removeLink(event.getUser().getId());
+                }
             }
         });
     }

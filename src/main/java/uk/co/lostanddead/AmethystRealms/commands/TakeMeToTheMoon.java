@@ -87,7 +87,7 @@ public class TakeMeToTheMoon implements CommandExecutor {
         Bukkit.getScheduler().runTaskLater(core, new Runnable() {
             @Override
             public void run() {
-                PotionEffect effect = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 5, 99999, true, true, false);
+                PotionEffect effect = new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 20, 99999, true, true, false);
                 p.addPotionEffect(effect);
                 p.teleport(startLoc);
                 p.sendMessage(ChatColor.GRAY + "JK, you are fine.");

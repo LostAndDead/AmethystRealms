@@ -28,10 +28,12 @@ public class onAdvancementDone implements Listener {
         }
         Object obj = core.lang.get("advancements." + key + ".title");
         if(obj == null){
-            for (Player pl : Bukkit.getOnlinePlayers()){
-                pl.sendMessage(core.getPrefix(p) + p.getName() + ChatColor.GRAY + " Completed an advancement.");
-                pl.sendMessage(ChatColor.RED + "(Something went wrong and I cant figure out which)");
-            }
+            //for (Player pl : Bukkit.getOnlinePlayers()){
+            //    pl.sendMessage(core.getPrefix(p) + p.getName() + ChatColor.GRAY + " Completed an advancement.");
+            //    pl.sendMessage(ChatColor.RED + "(Something went wrong and I cant figure out which)");
+            //}
+            Bukkit.getLogger().info("Advancement Error: " + key);
+            return;
         }else{
             String name = obj.toString();
             if (key.contains("adventure")){
