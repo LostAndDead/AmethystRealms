@@ -34,7 +34,6 @@ public final class AmethystRealmsCore extends JavaPlugin {
     public MySQL SQL;
     public KickHandler Kicker;
     public DiscordBot bot;
-    public SwearWordFinder Filter;
     public boolean shopOpen = false;
 
     public String defaultPack;
@@ -78,8 +77,6 @@ public final class AmethystRealmsCore extends JavaPlugin {
 
         this.SQL = new MySQL(this);
         this.Kicker = new KickHandler(this);
-        this.Filter = new SwearWordFinder();
-        Filter.loadConfigs();
 
         try {
             SQL.connect();
@@ -105,6 +102,8 @@ public final class AmethystRealmsCore extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new onAdvancementDone(this), this);
         Bukkit.getPluginManager().registerEvents(new endermanPickup(this), this);
         Bukkit.getPluginManager().registerEvents(new onDeath(this), this);
+        Bukkit.getPluginManager().registerEvents(new onCropTrample(this), this);
+        Bukkit.getPluginManager().registerEvents(new armourEquip(this), this);
 
         //tabPackets tp = new tabPackets(this);
 
@@ -184,10 +183,6 @@ public final class AmethystRealmsCore extends JavaPlugin {
                 getSQL().ping();
             }
         }, 6000, 6000);
-
-        for (Player p : Bukkit.getOnlinePlayers()){
-            p.setResourcePack(defaultPack, decodeHexString(defaultPackHash));
-        }
     }
 
     @Override
@@ -206,8 +201,6 @@ public final class AmethystRealmsCore extends JavaPlugin {
     }
 
     public KickHandler getKicker(){return Kicker;}
-
-    public SwearWordFinder getSwearFilter(){return Filter;}
 
     public String getPrefix(Player p){
         String prefix;

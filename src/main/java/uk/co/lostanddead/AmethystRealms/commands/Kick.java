@@ -20,6 +20,7 @@ public class Kick implements CommandExecutor {
             sender.sendMessage("也 " + ChatColor.RED + "Player Not Found" + ChatColor.RESET + " 也");
             return true;
         }
+
         Player toKick = Bukkit.getPlayer(args[0]);
         StringBuilder reason = new StringBuilder();
         for (String i : args){

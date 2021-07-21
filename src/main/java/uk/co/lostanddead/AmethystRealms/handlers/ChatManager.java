@@ -9,7 +9,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.scheduler.BukkitRunnable;
 import uk.co.lostanddead.AmethystRealms.AmethystRealmsCore;
-import uk.co.lostanddead.AmethystRealms.SwearWordFinder;
 
 public class ChatManager implements Listener {
     
@@ -26,16 +25,9 @@ public class ChatManager implements Listener {
             event.setCancelled(true);
         }
 
-        SwearWordFinder filter = core.getSwearFilter();
-        if(filter.filterText(event.getMessage())){
-            p.sendMessage("也" + ChatColor.RED +" Please Use Appropriate Language " + ChatColor.RESET + "也");
-            event.setCancelled(true);
-            return;
-        }
-
         String premessage = event.getMessage().replaceAll("%","%%");
-        StringBuilder message = new StringBuilder(CharMatcher.noneOf("abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"£$%^&*()-=_+\\,./|<>?[];'#{}:@~ ").removeFrom(premessage));
-        String removed = CharMatcher.anyOf("abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"£$%^&*()-=_+\\,./|<>?[];'#{}:@~ ").removeFrom(premessage);
+        StringBuilder message = new StringBuilder(CharMatcher.noneOf("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"£$%^&*()-=_+\\,./|<>?[];'#{}:@~ ").removeFrom(premessage));
+        String removed = CharMatcher.anyOf("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"£$%^&*()-=_+\\,./|<>?[];'#{}:@~ ").removeFrom(premessage);
 
         String original = message.toString();
 
@@ -98,7 +90,11 @@ public class ChatManager implements Listener {
                     stand.setGravity(false);
                     stand.setVisible(false);
                     stand.setCanPickupItems(false);
-                    stand.setCustomName("上 "+ altMessage);
+                    if (p.hasPermission("smp.premium")){
+                        stand.setCustomName("上 "+ String.format("%s", ChatColor.translateAlternateColorCodes('&', altMessage)));
+                    }else{
+                        stand.setCustomName("上 "+ altMessage);
+                    }
                     stand.setCustomNameVisible(true);
                     stand.setMarker(true);
                     core.playerMessages.put(p.getUniqueId(), stand);

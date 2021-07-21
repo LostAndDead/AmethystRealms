@@ -68,7 +68,7 @@ public class DiscordBot {
             if (event.getMessageContent().equalsIgnoreCase("!setuphelp") && event.getMessageAuthor().getId() == core.getConfig().getLong("OwnerID")) {
                 new MessageBuilder()
                         .setEmbed(new EmbedBuilder()
-                                .setImage("https://lostanddead.co.uk/justtext.png")
+                                .setImage("https://www.lostanddead.co.uk/justtext.png")
                                 .setColor(new java.awt.Color(141, 106, 204))
                         )
                         .send(event.getChannel());
@@ -89,7 +89,7 @@ public class DiscordBot {
             if (event.getMessageContent().equalsIgnoreCase("!setupwaiting") && event.getMessageAuthor().getId() == core.getConfig().getLong("OwnerID")) {
                 new MessageBuilder()
                         .setEmbed(new EmbedBuilder()
-                                .setImage("https://lostanddead.co.uk/justtext.png")
+                                .setImage("https://www.lostanddead.co.uk/justtext.png")
                                 .setColor(new java.awt.Color(141, 106, 204))
                         )
                         .send(event.getChannel());
@@ -110,7 +110,7 @@ public class DiscordBot {
             if (event.getMessageContent().equalsIgnoreCase("!setuprules") && event.getMessageAuthor().getId() == core.getConfig().getLong("OwnerID")) {
                 new MessageBuilder()
                         .setEmbed(new EmbedBuilder()
-                                .setImage("https://lostanddead.co.uk/justtext.png")
+                                .setImage("https://www.lostanddead.co.uk/justtext.png")
                                 .setColor(new java.awt.Color(141, 106, 204))
                         )
                         .send(event.getChannel());
@@ -135,7 +135,7 @@ public class DiscordBot {
             if (event.getMessageContent().equalsIgnoreCase("!setuplink") && event.getMessageAuthor().getId() == core.getConfig().getLong("OwnerID")) {
                 new MessageBuilder()
                         .setEmbed(new EmbedBuilder()
-                                .setImage("https://lostanddead.co.uk/justtext.png")
+                                .setImage("https://www.lostanddead.co.uk/justtext.png")
                                 .setColor(new java.awt.Color(141, 106, 204))
                         )
                         .send(event.getChannel());
@@ -156,7 +156,7 @@ public class DiscordBot {
             if (event.getMessageContent().equalsIgnoreCase("!setupwhitelist") && event.getMessageAuthor().getId() == core.getConfig().getLong("OwnerID")) {
                 new MessageBuilder()
                         .setEmbed(new EmbedBuilder()
-                                .setImage("https://lostanddead.co.uk/justtext.png")
+                                .setImage("https://www.lostanddead.co.uk/justtext.png")
                                 .setColor(new java.awt.Color(141, 106, 204))
                         )
                         .send(event.getChannel());
@@ -177,7 +177,7 @@ public class DiscordBot {
             if (event.getMessageContent().equalsIgnoreCase("!setupnicks") && event.getMessageAuthor().getId() == core.getConfig().getLong("OwnerID")) {
                 new MessageBuilder()
                         .setEmbed(new EmbedBuilder()
-                                .setImage("https://lostanddead.co.uk/justtext.png")
+                                .setImage("https://www.lostanddead.co.uk/justtext.png")
                                 .setColor(new java.awt.Color(141, 106, 204))
                         )
                         .send(event.getChannel());
@@ -197,7 +197,7 @@ public class DiscordBot {
                 return;
             }
             if(event.getChannel().getId() == core.getConfig().getLong("WhitelistChannelID")){
-                String removed = CharMatcher.anyOf("abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_").removeFrom(event.getMessageContent());
+                String removed = CharMatcher.anyOf("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890_").removeFrom(event.getMessageContent());
                 if ((event.getMessageContent().contains(" ") || event.getMessageContent().length() > 16) || removed.length() > 0){
 
                     Message msg = event.getChannel().sendMessage("<@"+ event.getMessageAuthor().getId() + "> The username you submitted is not valid, please try again.").join();
@@ -289,8 +289,6 @@ public class DiscordBot {
                         event.getMessage().get().getUserAuthor().get().sendMessage("Your whitelist application has been declined.");
                         event.getMessage().get().delete();
                     }
-                }else{
-                    event.getReaction().get().remove();
                 }
             }
         });
@@ -316,12 +314,6 @@ public class DiscordBot {
                     timer.schedule((Runnable) msg::delete,deleteDelay, TimeUnit.SECONDS);
                     event.getMessage().delete();
                     return;
-                }
-                if (core.getSwearFilter().filterText(event.getMessageContent())){
-                    event.getMessage().delete();
-                    return;
-                }else{
-                    Bukkit.getScheduler().runTaskLater(core, () -> p.chat(event.getMessageContent()), 0);
                 }
                 event.getMessage().delete();
             }
@@ -362,8 +354,8 @@ public class DiscordBot {
                     timer.schedule((Runnable) event.getMessage()::delete,userDeleteDelay, TimeUnit.SECONDS);
                     return;
                 }
-                String removed = CharMatcher.anyOf("abcdefghijklmnoprstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"£&$%^&*()-=_+\\,./|<>?[];'#{}:@~ ").removeFrom(event.getMessageContent());
-                if (event.getMessageContent().length() > 10 || core.getSwearFilter().filterText(event.getMessageContent()) || removed.length() > 0){
+                String removed = CharMatcher.anyOf("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!\"£&$%^&*()-=_+\\,./|<>?[];'#{}:@~ ").removeFrom(event.getMessageContent());
+                if (event.getMessageContent().length() > 10 || removed.length() > 0){
                     Message msg = event.getChannel().sendMessage("<@"+ event.getMessageAuthor().getId() + "> Invalid nickname.").join();
 
                     ScheduledExecutorService timer = api.getThreadPool().getScheduler();

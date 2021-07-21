@@ -26,7 +26,7 @@ public class Mute implements CommandExecutor {
         Player toMute = Bukkit.getPlayer(args[0]);
         StringBuilder reason = new StringBuilder();
         for (String i : args){
-            if (i.equals(args[0])){
+            if (!i.equals(args[0])){
                 reason.append(i).append(" ");
             }
         }

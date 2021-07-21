@@ -20,19 +20,17 @@ public class TakeMeToTheMoon implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        Player p;
+        Player p = (Player) sender;
+        Player toFly;
 
         if(args.length == 0){
-            sender.sendMessage("也 " + ChatColor.RED + "Player Not Found" + ChatColor.RESET + " 也");
-            return true;
+            toFly = p;
         }
 
-        Player toFly = Bukkit.getPlayer(args[0]);
+        toFly = Bukkit.getPlayer(args[0]);
         if(toFly == null){
             sender.sendMessage("也 " + ChatColor.RED + "Player Not Found" + ChatColor.RESET + " 也");
             return true;
-        }else{
-            p = toFly;
         }
 
         World world = p.getWorld();

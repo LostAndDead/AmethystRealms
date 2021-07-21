@@ -1,5 +1,9 @@
 package uk.co.lostanddead.AmethystRealms.listeners;
 
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
@@ -9,7 +13,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import uk.co.lostanddead.AmethystRealms.AmethystRealmsCore;
-import uk.co.lostanddead.AmethystRealms.JSONMessage;
 
 
 public class onAdvancementDone implements Listener {
@@ -38,14 +41,16 @@ public class onAdvancementDone implements Listener {
             String name = obj.toString();
             if (key.contains("adventure")){
                 for (Player pl : Bukkit.getOnlinePlayers()){
-                    //pl.sendMessage(core.getPrefix(p) + p.getName() + ChatColor.GRAY + " Completed " + ChatColor.DARK_PURPLE + name);
-                    JSONMessage.create(core.getPrefix(p) + p.getName() + ChatColor.GRAY + " Completed ").then(ChatColor.DARK_PURPLE + name).tooltip(ChatColor.GRAY + core.lang.get("advancements." + key + ".description").toString()).send(pl);
+                    TextComponent msg = new TextComponent(core.getPrefix(p) + p.getName() + ChatColor.GRAY + " Completed " + ChatColor.DARK_PURPLE + name);
+                    msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.GRAY + core.lang.get("advancements." + key + ".description").toString()).create()));
+                    pl.spigot().sendMessage(msg);
                     pl.playSound(p.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 1f, 1f);
                 }
             }else{
                 for (Player pl : Bukkit.getOnlinePlayers()){
-                    //pl.sendMessage(core.getPrefix(p) + p.getName() + ChatColor.GRAY + " Completed " + ChatColor.GREEN + name);
-                    JSONMessage.create(core.getPrefix(p) + p.getName() + ChatColor.GRAY + " Completed ").then(ChatColor.GREEN + name).tooltip(ChatColor.GRAY + core.lang.get("advancements." + key + ".description").toString()).send(pl);
+                    pl.sendMessage(core.getPrefix(p) + p.getName() + ChatColor.GRAY + " Completed " + ChatColor.GREEN + name);
+                    TextComponent msg = new TextComponent(core.getPrefix(p) + p.getName() + ChatColor.GRAY + " Completed " + ChatColor.GREEN + name);
+                    msg.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(ChatColor.GRAY + core.lang.get("advancements." + key + ".description").toString()).create()));
                 }
             }
 

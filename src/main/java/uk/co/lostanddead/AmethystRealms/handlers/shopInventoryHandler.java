@@ -39,7 +39,7 @@ public class shopInventoryHandler implements Listener {
                             if(inv.getItem(10) != null){
                                 ItemStack payment = inv.getItem(37);
                                 if(payment != null){
-                                    if(payment.getType() == Material.DIAMOND && payment.getAmount() >= 10){
+                                    if(payment.getType() == Material.AMETHYST_SHARD && payment.getAmount() >= 10){
                                         boolean freeSlot = false;
                                         for (ItemStack is : p.getInventory().getContents()){
                                             if (is == null) {

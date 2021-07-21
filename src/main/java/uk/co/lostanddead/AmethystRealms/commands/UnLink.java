@@ -1,5 +1,7 @@
 package uk.co.lostanddead.AmethystRealms.commands;
 
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -9,7 +11,6 @@ import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitTask;
 import uk.co.lostanddead.AmethystRealms.AmethystRealmsCore;
-import uk.co.lostanddead.AmethystRealms.JSONMessage;
 
 import java.util.Locale;
 import java.util.Random;
@@ -34,11 +35,15 @@ public class UnLink implements CommandExecutor {
                 return true;
             }else{
                 sender.sendMessage("也 " + ChatColor.RED + "You need to confirm" + ChatColor.RESET + " 也");
-                JSONMessage.create("").then("  [Confirm]").color(ChatColor.RED).style(ChatColor.BOLD).runCommand("/unlink confirm").send((Player) sender);
+                TextComponent msg = new TextComponent(ChatColor.RED + "" + ChatColor.BOLD + "  [Confirm]");
+                msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/unlink confirm"));
+                sender.spigot().sendMessage(msg);
             }
         }else{
             sender.sendMessage("也 " + ChatColor.RED + "You need to confirm" + ChatColor.RESET + " 也");
-            JSONMessage.create("").then("      [Confirm]").color(ChatColor.RED).style(ChatColor.BOLD).runCommand("/unlink confirm").send((Player) sender);
+            TextComponent msg = new TextComponent(ChatColor.RED + "" + ChatColor.BOLD + "  [Confirm]");
+            msg.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/unlink confirm"));
+            sender.spigot().sendMessage(msg);
         }
 
         return true;

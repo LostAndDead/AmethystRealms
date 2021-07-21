@@ -1,7 +1,7 @@
 name: AmethystRealms
 version: ${project.version}
 main: uk.co.lostanddead.AmethystRealms.AmethystRealmsCore
-api-version: 1.16
+api-version: 1.17
 authors: [ LostAndDead ]
 description: Core plugin for Lost SMP 1.17
 website: https://lostanddead.co.uk
@@ -27,19 +27,16 @@ commands:
     description: Mutes a player
     usage: /<command> Player Reason
     permission: smp.mod
-    default: op
     permission-message: ""
   unmute:
     description: Un-Mutes a player
     usage: /<command> Player
     permission: smp.mod
-    default: op
     permission-message: ""
   broadcast:
     description: Broadcasts a message to all players
     usage: /<command> Message
     permission: smp.admin
-    default: op
     permission-message: ""
   pack:
     description: Manage which resource pack you have
@@ -67,7 +64,6 @@ commands:
     description: Kick a player
     usage: /<command> Player Reason
     permission: smp.mod
-    default: op
     permission-message: ""
   msg:
     aliases: [
@@ -88,8 +84,6 @@ commands:
   openshop:
     description: Opens the shop for everyone to use
     usage: /<command>
-    permission: smp.admin
-    default: op
     permission-message: ""
   togglehud:
     description: Toggles Co-ordinate hud
@@ -112,17 +106,14 @@ commands:
     description: Sends someone to the moon
     usage: /<command> Player
     permission: smp.admin
-    default: op
     permission-message: ""
   ban:
     description: Ban a player
     usage: /<command> Player
     permission: smp.admin
-    default: op
     permission-message: ""
   reloadconfig:
     description: Reload main config
     usage: /<command>
     permission: smp.admin
-    default: op
     permission-message: ""
